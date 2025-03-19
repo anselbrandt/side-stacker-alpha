@@ -48,7 +48,7 @@ def game_updater(board: Board = new_board(), moves=[]):
     turn = 1
     player = "X"
     curr_board = board
-    win = None
+    win = False
 
     for move in moves:
         i, j = move
