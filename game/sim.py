@@ -1,6 +1,9 @@
 from typing import List, Optional, Union
-import pandas as pd
+
+from .logic import Board, new_board, win_condition
+
 from IPython.display import display
+import pandas as pd
 
 LikelihooddBoard = List[List[Optional[Union[str, float]]]]
 
@@ -39,3 +42,25 @@ def display_likelihood(board: LikelihooddBoard):
         )
 
     display(style_table(df))
+
+
+def game_updater(board: Board = new_board(), moves=[]):
+    turn = 1
+    player = "X"
+    curr_board = board
+    win = None
+
+    for move in moves:
+        i, j = move
+        curr_board[i][j] = player
+        if player == "X":
+            player = "O"
+        else:
+            player = "X"
+        if player == "X":
+            turn += 1
+    winning_condition = win_condition(curr_board, player)
+    if winning_condition:
+        win = winning_condition
+
+    return (board, turn, player, win)
