@@ -60,3 +60,16 @@ def game_updater(board: Board = new_board(), moves=[]):
         win = winning_condition
 
     return (board, turn, player, win)
+
+
+def top_liklihood(board: Board):
+    values = []
+
+    for i, row in enumerate(board):
+        for j, value in enumerate(row):
+            if isinstance(value, float):
+                values.append((value, i, j))
+
+    top_value = sorted(values, reverse=True)[0]
+
+    return top_value
