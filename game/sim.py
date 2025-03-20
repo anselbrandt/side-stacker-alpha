@@ -1,11 +1,7 @@
-from typing import List, Optional, Union
-
 from .logic import Board, new_board, win_condition
 
 from IPython.display import display
 import pandas as pd
-
-LikelihooddBoard = List[List[Optional[Union[str, float]]]]
 
 likelihood_board = [
     [None, None, None, None, None, None, None],
@@ -18,7 +14,7 @@ likelihood_board = [
 ]
 
 
-def display_likelihood(board: LikelihooddBoard):
+def display_likelihood(board: Board):
     df = pd.DataFrame(board).replace({None: ""}).fillna("")
     df = df.apply(
         lambda x: x.map(

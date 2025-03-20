@@ -1,8 +1,8 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 size = 7
 
-Board = List[List[Optional[str]]]
+Board = List[List[Optional[Union[str, float]]]]
 
 
 def new_board() -> Board:
