@@ -2,7 +2,7 @@ from typing import List, Optional, Union
 
 size = 7
 
-Board = List[List[Optional[Union[str, float]]]]
+Board = List[List[Optional[Union[str, float, tuple]]]]
 
 
 def new_board() -> Board:
