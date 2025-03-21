@@ -2,6 +2,12 @@
 
 This repo contains game logic and algorithms to solve a variation of Connect Four. The origin of this game was a take-home coding exam whose description can be found below.
 
+### Helpful Resources:
+
+[Solving Connect 4: how to build a perfect AI](http://blog.gamesolver.org/)
+
+[Alpha-Zero Connect Four NN](https://github.com/advait/c4a0) ([YouTube Presentation](https://www.youtube.com/watch?v=_Y26BFaVclg))
+
 ## Side Stacker
 
 ### Difficulty: Advanced (senior full-stack applicants)

@@ -16,32 +16,6 @@ likelihood_board = [
 ]
 
 
-def display_likelihood(board: Board):
-    df = pd.DataFrame(board).replace({None: ""}).fillna("")
-    df = df.apply(
-        lambda x: x.map(
-            lambda val: f"{val:.2f}" if isinstance(val, (int, float)) else val
-        )
-    )
-
-    def style_table(df):
-        return (
-            df.style.set_properties(
-                **{
-                    "border": "1px solid black",
-                    "text-align": "center",
-                    "width": "30px",
-                    "height": "30px",
-                    "background-color": "white",
-                }
-            )
-            .hide(axis="index")
-            .hide(axis="columns")
-        )
-
-    display(style_table(df))
-
-
 def game_updater(board: Board = new_board(), moves=[]):
     turn = 1
     player = "X"
@@ -64,19 +38,6 @@ def game_updater(board: Board = new_board(), moves=[]):
     return (board, turn, player, win)
 
 
-def top_liklihood(board: Board):
-    values = []
-
-    for i, row in enumerate(board):
-        for j, value in enumerate(row):
-            if isinstance(value, float):
-                values.append((value, i, j))
-
-    top_value = sorted(values, reverse=True)[0]
-
-    return top_value
-
-
 def get_stats(outcome):
     x, o, tie = outcome
     total = x + o + tie
@@ -90,7 +51,7 @@ def get_stats(outcome):
         + ((-1 - median) ** 2 * o_prob)
     )
     std_dev = sqrt(variance)
-    return round(median, 2)
+    return median
 
 
 def get_stats_board(likelihood_board):
@@ -99,3 +60,46 @@ def get_stats_board(likelihood_board):
         for row in likelihood_board
     ]
     return result
+
+
+def get_expected_values(likelihood_board: Board, initial_player):
+    result = get_stats_board(likelihood_board)
+
+    top_result = [
+        (round(value, 3), i, j)
+        for i, row in enumerate(result)
+        for j, value in enumerate(row)
+        if isinstance(value, float)
+    ]
+    reverse = True if initial_player == "X" else False
+    return sorted(top_result, reverse=reverse)
+
+
+def display_likelihood(board: Board):
+    stats_board = [
+        [get_stats(item) if isinstance(item, tuple) else item for item in row]
+        for row in board
+    ]
+    df = pd.DataFrame(stats_board).replace({None: ""}).fillna("")
+    df = df.apply(
+        lambda x: x.map(
+            lambda val: (f"{val:.3f}" if isinstance(val, (int, float)) else val)
+        )
+    )
+
+    def style_table(df):
+        return (
+            df.style.set_properties(
+                **{
+                    "border": "1px solid black",
+                    "text-align": "center",
+                    "width": "30px",
+                    "height": "30px",
+                    "background-color": "white",
+                }
+            )
+            .hide(axis="index")
+            .hide(axis="columns")
+        )
+
+    display(style_table(df))
