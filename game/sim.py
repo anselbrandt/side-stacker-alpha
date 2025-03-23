@@ -16,7 +16,9 @@ likelihood_board = [
 ]
 
 
-def game_updater(board: Board = new_board(), moves=[]):
+def game_updater(board: Board | None = None, moves=[]):
+    if board is None:
+        board = new_board()
     turn = 1
     player = "X"
     curr_board = board
