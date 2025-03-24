@@ -31,14 +31,13 @@ def check_direction(board, i, j, di, dj, symbol):
 
 def win_condition(board, player):
     directions = [(-1, -1), (-1, 1), (0, 1), (1, 0)]
-    labels = ["diag_neg", "diag_pos", "horiz", "vert"]
 
     for i in range(size):
         for j in range(size):
             if board[i][j] == player:
-                for (di, dj), label in zip(directions, labels):
+                for di, dj in directions:
                     if check_direction(board, i, j, di, dj, player):
-                        return label
+                        return True
 
     return False
 
