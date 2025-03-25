@@ -70,22 +70,22 @@ class MCTS:
 
     def roll_out(self, state: GameState) -> int:
         while not state.game_over():
-            opponent = (
-                GameMeta.PLAYERS["two"]
-                if self.root_state.to_play == GameMeta.PLAYERS["one"]
-                else GameMeta.PLAYERS["one"]
-            )
-            valid_moves = state.get_legal_moves()
-            winning_moves = get_optimal(
-                self.root_state.board, valid_moves, self.root_state.to_play
-            )
-            blocking_moves = get_optimal(self.root_state.board, valid_moves, opponent)
-            selected_moves = valid_moves
-            if len(winning_moves):
-                selected_moves = winning_moves
-            elif len(blocking_moves):
-                selected_moves = blocking_moves
-            state.move(random.choice(selected_moves))
+            # opponent = (
+            #     GameMeta.PLAYERS["two"]
+            #     if self.root_state.to_play == GameMeta.PLAYERS["one"]
+            #     else GameMeta.PLAYERS["one"]
+            # )
+            # valid_moves = state.get_legal_moves()
+            # winning_moves = get_optimal(
+            #     self.root_state.board, valid_moves, self.root_state.to_play
+            # )
+            # blocking_moves = get_optimal(self.root_state.board, valid_moves, opponent)
+            # selected_moves = valid_moves
+            # if len(winning_moves):
+            #     selected_moves = winning_moves
+            # elif len(blocking_moves):
+            #     selected_moves = blocking_moves
+            state.move(random.choice(state.get_legal_moves()))
 
         return state.get_outcome()
 
