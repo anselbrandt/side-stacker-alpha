@@ -127,6 +127,19 @@ class MCTS:
 
         return best_child.move
 
+    def all_moves(self):
+        if self.root_state.game_over():
+            return -1
+
+        max_value = max(self.root.children.values(), key=lambda n: n.N).N
+        max_nodes = [n for n in self.root.children.values() if n.N == max_value]
+        best_child = random.choice(max_nodes)
+        all_moves = [
+            (node.move, node.Q / node.N) for node in self.root.children.values()
+        ]
+
+        return (best_child.move, all_moves)
+
     def move(self, move):
         if move in self.root.children:
             self.root_state.move(move)
